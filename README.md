@@ -26,6 +26,7 @@
 # :hammer: Herramientas Utilizadas <a name = "built_using"></a>
 
 ## Herramientas
+### Windows
 Recomendamos utilizar [chocolatey](https://chocolatey.org/install) para instalar estos paquetes:
 - [vscode](https://community.chocolatey.org/packages/vscode)
 ```
@@ -42,6 +43,25 @@ choco install postman
 - [googlechrome](https://community.chocolatey.org/packages/googlechrome)
 ```
 choco install googlechrome
+```
+
+### macOS
+Recomendamos utilizar [homebrew](https://brew.sh/) para instalar estos paquetes:
+- [visual-studio-code](https://formulae.brew.sh/cask/visual-studio-code#default)
+```
+brew install --cask visual-studio-code
+```
+- [node@18](https://formulae.brew.sh/formula/node@18)
+```
+brew install node@18
+```
+- [postman](https://formulae.brew.sh/cask/postman#default)
+```
+brew install --cask postman
+```
+- [google-chrome]([https://community.chocolatey.org/packages/googlechrome](https://formulae.brew.sh/cask/google-chrome#default))
+```
+brew install --cask google-chrome
 ```
 
 ## Paquetes npm
