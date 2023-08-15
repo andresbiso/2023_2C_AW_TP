@@ -27,7 +27,7 @@
 
 ## Herramientas
 ### Windows
-Recomendamos utilizar [chocolatey](https://chocolatey.org/install) para instalar estos paquetes:
+Recomiendo utilizar [chocolatey](https://chocolatey.org/install) para instalar estos paquetes:
 - [vscode](https://community.chocolatey.org/packages/vscode)
 ```
 choco install vscode
@@ -46,7 +46,7 @@ choco install googlechrome
 ```
 
 ### macOS
-Recomendamos utilizar [homebrew](https://brew.sh/) para instalar estos paquetes:
+Recomiendo utilizar [homebrew](https://brew.sh/) para instalar estos paquetes:
 - [visual-studio-code](https://formulae.brew.sh/cask/visual-studio-code#default)
 ```
 brew install --cask visual-studio-code
@@ -59,19 +59,19 @@ brew install node@18
 ```
 brew install --cask postman
 ```
-- [google-chrome]([https://community.chocolatey.org/packages/googlechrome](https://formulae.brew.sh/cask/google-chrome#default))
+- [google-chrome](https://formulae.brew.sh/cask/google-chrome#default)
 ```
 brew install --cask google-chrome
 ```
 
 ## Paquetes npm
-Recomendamos utilizar la versión de npm que viene incluído en la versión de nodejs LTS (v18.17.1) para instalar los paquetes que se encuentran en el archivo package.json y que pueden ser instalados localmente al proyecto con el comando:
+Recomiendo utilizar la versión de npm que viene incluído en la versión de nodejs LTS (v18.17.1) para instalar los paquetes que se encuentran en el archivo package.json y que pueden ser instalados localmente al proyecto con el comando:
 ```
 npm install
 ```
 
 # :telescope: Probar API <a name = "test_api"></a>
-- Elegimos utilizar [postman](https://www.postman.com/) para probar nuestra API.
+- Hago uso de [postman](https://www.postman.com/) para probar la API.
 
 # :question: Otros Comentarios <a name = "comments"></a>
 
