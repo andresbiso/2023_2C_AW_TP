@@ -11,7 +11,7 @@
 - [Herramientas Utilizadas](#built_using)
 - [Probar API](#api_testing)
 - [Otros Comentarios](#comments)
-- [Autores](#authors)
+- [Autor](#author)
 - [Reconocimientos](#acknowledgement)
 
 # :information_source: Acerca De <a name = "about"></a>
@@ -75,7 +75,7 @@ npm install
 
 # :question: Otros Comentarios <a name = "comments"></a>
 
-# :speech_balloon: Autores <a name = "authors"></a>
+# :speech_balloon: Autor <a name = "author"></a>
 - [@andresbiso](https://github.com/andresbiso)
 
 # :tada: Reconocimientos <a name = "acknowledgement"></a>
