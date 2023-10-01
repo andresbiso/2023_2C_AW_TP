@@ -32,9 +32,9 @@ Recomiendo utilizar [chocolatey](https://chocolatey.org/install) para instalar e
 ```
 choco install vscode
 ```
-- [nodejs-lts](https://community.chocolatey.org/packages/nodejs-lts) -> v18.17.1
+- [nodejs-lts](https://community.chocolatey.org/packages/nodejs-lts) -> v18.18.0
 ```
-choco install nodejs-lts --version 18.17.1
+choco install nodejs-lts --version 18.18.0
 ```
 - [postman](https://community.chocolatey.org/packages/postman)
 ```
@@ -69,6 +69,9 @@ Recomiendo utilizar la versión de npm que viene incluído en la versión de nod
 ```
 npm install
 ```
+
+## Seleccionar versión de node en macOS con Homebrew
+- https://benmckay.com/2023/01/20/use-multiple-versions-of-node-with-homebrew/
 
 # :telescope: Probar API <a name = "test_api"></a>
 - Hago uso de [postman](https://www.postman.com/) para probar la API.
