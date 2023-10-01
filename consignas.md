@@ -1,8 +1,12 @@
 # Consignas
 - La idea del TP es crear una RestAPI de un tema elegido por nosotros.
-- El sistema debe contar con al menos un CRUD
-- El sistema debe tener una funcionalidad que utilice más de una tabla para obtener el resultado
-- El sistema debe tener alguna funcionalidad más compleja como el caso de un reporte
+- El sistema debe contar con al menos un CRUD.
+- El sistema debe tener una funcionalidad que utilice más de una tabla para obtener el resultado.
+- El sistema debe tener alguna funcionalidad más compleja como el caso de un reporte.
+
+# Consideraciones
+- Los recursos deben ir todos en plural.
+- El nivel mínimo de APIRest es Level 2.
 
 # Entregas
 ## Entrega 1
@@ -26,4 +30,4 @@
   
 # Herramientas
 - Nodejs, Postman y chrome devtools.
-- Como DB podemos utilizar: MongoDB y Mongoose, 
+- Como DB podemos utilizar: MongoDB y Mongoose.
