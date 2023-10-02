@@ -2,6 +2,8 @@ const express = require('express');
 const fs = require('fs');
 
 var app = express();
+const port = process.env.PORT || 3000;
+
 app.get('/', function (req, res) {
   res.status(200).send('¡Hola Mundo!');
 });
@@ -17,11 +19,7 @@ app.get('/lorem-ipsum', function (req, res) {
     res.contentType('text/plain').send(data);
   });
 });
-app.listen(10000, function () {
-  const port = 10000;
-  console.log(
-    'Started application on port %d: http://localhost:%d',
-    port,
-    port,
-  );
+app.listen(port, () => {
+  console.log(`El servidor se encuentra escuchando en el puerto ${port}`);
+  console.log(`Acceso al servidor en: http://localhost:${port}/`);
 });
