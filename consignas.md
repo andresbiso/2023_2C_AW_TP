@@ -29,5 +29,5 @@
 - Se hace la entrega final del TP con una demo de la aplicación.
   
 # Herramientas
-- Nodejs, Postman y chrome devtools.
+- Nodejs, Express, Postman y chrome devtools.
 - Como DB podemos utilizar: MongoDB y Mongoose.
