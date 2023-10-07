@@ -64,11 +64,31 @@ brew install --cask postman
 brew install --cask google-chrome
 ```
 
-### Base de Datos
+## Base de Datos
 Este proyecto hace uso de MongoDB y MongoDB Compass.
-- https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+
+### Windows
 - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
-- https://www.mongodb.com/try/download/compass
+- [mongodb](https://community.chocolatey.org/packages/mongodb) -> v7.0.1
+```
+choco install mongodb --version 7.0.1
+```
+- [mongodb-compass](https://community.chocolatey.org/packages/mongodb-compass) -> v1.40.2
+```
+choco install mongodb-compass --version 1.40.2
+```
+
+### macOS
+- https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+- [mongodb-community](https://github.com/mongodb/homebrew-brew) -> v7.0
+```
+brew tap mongodb/brew
+brew install mongodb-community@7.0
+```
+- [mongodb-compass](https://formulae.brew.sh/cask/mongodb-compass) -> v1.40.2
+```
+brew install --cask mongodb-compass
+```
 
 ## Paquetes npm
 Recomiendo utilizar la versión de npm que viene incluído en la versión de nodejs LTS (v18.17.1) para instalar los paquetes que se encuentran en el archivo package.json y que pueden ser instalados localmente al proyecto con el comando:
