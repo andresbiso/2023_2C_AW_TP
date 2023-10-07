@@ -64,6 +64,12 @@ brew install --cask postman
 brew install --cask google-chrome
 ```
 
+### Base de Datos
+Este proyecto hace uso de MongoDB y MongoDB Compass.
+- https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+- https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+- https://www.mongodb.com/try/download/compass
+
 ## Paquetes npm
 Recomiendo utilizar la versión de npm que viene incluído en la versión de nodejs LTS (v18.17.1) para instalar los paquetes que se encuentran en el archivo package.json y que pueden ser instalados localmente al proyecto con el comando:
 ```
