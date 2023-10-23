@@ -4,6 +4,8 @@ const app = express();
 const argv = require('minimist')(process.argv.slice(2));
 const cors = require('cors');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 // Controllers
 const usersCtrl = require('./controllers/users');
@@ -90,6 +92,7 @@ async function mongo_connection() {
   });
   app.use('/api/v1/users', usersCtrl);
   app.use('/api/v1/databases', databasesCtrl);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.listen(port, function () {
     console.log(`El servidor se encuentra escuchando en el puerto ${port}`);
