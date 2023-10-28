@@ -11,6 +11,8 @@ const swaggerDocument = require('./swagger.json');
 const usersCtrl = require('./controllers/users');
 const databasesCtrl = require('./controllers/databases');
 
+require('dotenv').config();
+
 //CORS
 app.use(
   cors({
@@ -34,23 +36,27 @@ app.use(
 );
 app.use('', subpath);
 
-var domain = 'localhost';
-if (argv.domain !== undefined) domain = argv.domain;
-else
+let hostname = process.env.HOST;
+if (argv.hostname !== undefined) {
+  hostname = argv.hostname;
+} else {
   console.log(
-    'No --domain=xxx specified, taking default hostname "localhost".',
+    `No --hostname=xxx specified, taking default hostname "${hostname}".`,
   );
-
-var port = 3000;
-if (argv.port !== undefined) port = argv.port;
-else console.log('No --port=xxx specified, taking default port ' + port + '.');
+}
+let port = process.env.PORT;
+if (argv.port !== undefined) {
+  port = argv.port;
+} else {
+  console.log('No --port=xxx specified, taking default port ' + port + '.');
+}
 
 // MongoDB Connection
 /**
  * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
  * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
  */
-const uri = 'mongodb://127.0.0.1:27017/my_db';
+const uri = process.env.MONGODB_URI;
 async function mongo_connection() {
   mongoose.set('strictQuery', true);
   try {
@@ -59,7 +65,7 @@ async function mongo_connection() {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
-      .then(function (db) {
+      .then(function () {
         console.log('MongoDB Connection Done!!');
       })
       .catch(function (err) {
@@ -96,7 +102,7 @@ async function mongo_connection() {
 
   app.listen(port, function () {
     console.log(`El servidor se encuentra escuchando en el puerto ${port}`);
-    console.log(`Acceso al servidor en: http://${domain}:${port}/`);
+    console.log(`Acceso al servidor en: http://${hostname}:${port}/`);
   });
 }
 
