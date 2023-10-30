@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
       if (users && users !== null) {
         res.status(200).send({ data: users });
       } else {
-        res.status(200).send({ data: null, message: 'Data not found' });
+        res.status(404).send({ data: null, message: 'Data not found' });
       }
     })
     .catch((err) => {
