@@ -141,6 +141,9 @@ npm install
 
 # :question: Otros Comentarios <a name = "comments"></a>
 
+- La API de Swagger puede ser levantada en: https://editor-next.swagger.io/
+- De esa manera se pueden hacer cambios en las definiciones sin necesidad de levantar el entorno.
+
 # :speech_balloon: Autor <a name = "author"></a>
 
 - [@andresbiso](https://github.com/andresbiso)

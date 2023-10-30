@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "Swagger CRUD",
-    "description": "Swagger CRUD description",
+    "title": "Blog",
+    "description": "Ejemplo de API para manejo de un Blog.",
     "contact": {}
   },
   "host": "localhost:3000",
@@ -25,12 +25,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "vm",
-            "required": ["profile_id", "username", "password"],
+            "name": "model",
+            "required": ["user_id", "username", "password"],
             "in": "body",
             "properties": {
               "profile_id": {
-                "$ref": "#/definitions/profile_id"
+                "$ref": "#/definitions/user_id"
               },
               "username": {
                 "$ref": "#/definitions/username"
@@ -45,10 +45,10 @@
           "200": {
             "description": "Success"
           },
-          "400": {
-            "description": "Business Exception",
+          "500": {
+            "description": "Server Error",
             "schema": {
-              "$ref": "#/definitions/business_exception"
+              "$ref": "#/definitions/server_error"
             }
           }
         }
@@ -59,15 +59,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "vm",
-            "required": ["_id", "profile_id", "username", "password"],
+            "name": "model",
+            "required": ["user_id", "username", "password"],
             "in": "body",
             "properties": {
-              "_id": {
-                "$ref": "#/definitions/_id"
-              },
-              "profile_id": {
-                "$ref": "#/definitions/profile_id"
+              "user_id": {
+                "$ref": "#/definitions/user_id"
               },
               "username": {
                 "$ref": "#/definitions/username"
@@ -82,10 +79,10 @@
           "200": {
             "description": "Success"
           },
-          "400": {
-            "description": "Business Exception",
+          "500": {
+            "description": "Server Error",
             "schema": {
-              "$ref": "#/definitions/business_exception"
+              "$ref": "#/definitions/server_error"
             }
           }
         }
@@ -96,43 +93,21 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "_id",
+            "name": "user_id",
             "in": "query",
-            "type": "string",
-            "description": "Collection ID",
-            "example": "5c0728badc70ea3dec00d8e6",
-            "defaultValue": ""
-          },
-          {
-            "name": "profile_id",
-            "in": "query",
-            "type": "number",
-            "description": "Profile ID (1 = ADMIN, 2 = CLIENT)",
-            "example": 1
-          },
-          {
-            "name": "username",
-            "in": "query",
-            "type": "string",
-            "description": "User logon",
-            "example": "LUCIANO"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "type": "string",
-            "description": "User password",
-            "example": "1234"
+            "schema": {
+              "$ref": "#/definitions/user_id"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Success"
           },
-          "400": {
-            "description": "Business Exception",
+          "500": {
+            "description": "Server Error",
             "schema": {
-              "$ref": "#/definitions/business_exception"
+              "$ref": "#/definitions/server_error"
             }
           }
         }
@@ -143,22 +118,21 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "_id",
+            "name": "user_id",
             "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "Collection ID",
-            "example": "5c0728badc70ea3dec00d8e6"
+            "schema": {
+              "$ref": "#/definitions/user_id"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Success"
           },
-          "400": {
-            "description": "Business Exception",
+          "500": {
+            "description": "Server Error",
             "schema": {
-              "$ref": "#/definitions/business_exception"
+              "$ref": "#/definitions/server_error"
             }
           }
         }
@@ -166,42 +140,30 @@
     }
   },
   "definitions": {
-    "_id": {
-      "type": "string",
-      "description": "Collection ID",
-      "example": "5c0728badc70ea3dec00d8e6"
-    },
-    "profile_id": {
+    "user_id": {
       "type": "number",
-      "description": "Profile ID (1 = ADMIN, 2 = CLIENT)",
+      "description": "Id for User",
       "example": 1
     },
     "username": {
       "type": "string",
-      "description": "User logon",
-      "example": "LUCIANO"
+      "description": "Username for login",
+      "example": "luke"
     },
     "password": {
       "type": "string",
-      "description": "User password",
+      "description": "User password for login",
       "example": "1234"
     },
-    "error": {
+    "server_error": {
       "type": "object",
-      "description": "Error data",
+      "description": "Server Error",
       "properties": {
         "msg": {
           "type": "string",
-          "description": "Error message",
-          "example": "User not found"
+          "description": "Server Error",
+          "example": "Server Error"
         }
-      }
-    },
-    "business_exception": {
-      "type": "array",
-      "description": "Error array",
-      "items": {
-        "$ref": "#/definitions/error"
       }
     }
   }

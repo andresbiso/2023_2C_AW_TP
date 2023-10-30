@@ -32,7 +32,7 @@ const articleSchema = new Schema({
 });
 
 //Calculate article readingTime
-articleSchema.methods.calculateReadingTime = function (content) {
+articleSchema.methods.calculateReadingTime = function () {
   const wpmavg = 250; // words per minute average
   const wordCount = this.body.split(' ').length;
   const readingTime = wordCount / wpmavg;
