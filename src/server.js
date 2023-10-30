@@ -94,7 +94,7 @@ async function mongo_connection() {
   });
 
   app.get('/', function (req, res) {
-    res.status(200).send('¡Hola Mundo!');
+    res.redirect(301, '/api-docs');
   });
   app.use('/api/v1/users', usersCtrl);
   app.use('/api/v1/databases', databasesCtrl);
