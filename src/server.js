@@ -8,8 +8,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 // Controllers
-const usersCtrl = require('./controllers/users');
-const databasesCtrl = require('./controllers/databases');
+const usersCtrl = require('./controllers/users.controller');
+const databasesCtrl = require('./controllers/databases.controller');
 
 require('dotenv').config();
 
