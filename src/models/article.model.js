@@ -1,16 +1,25 @@
 const { Schema, model } = require('mongoose');
 
 const articleSchema = new Schema({
+  article_id: {
+    type: Number,
+    required: true,
+  },
+  user_id: {
+    type: Number,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
   },
-  description: String,
-  author: String,
-  state: {
+  description: {
     type: String,
-    enum: ['draft', 'published'],
-    default: 'draft',
+    required: false,
+  },
+  author: {
+    type: String,
+    required: false,
   },
   body: {
     type: String,
@@ -19,11 +28,17 @@ const articleSchema = new Schema({
   readCount: {
     type: Number,
     default: 0,
+    required: false,
   },
-  readingTime: Number,
+  readingTime: {
+    type: Number,
+    default: 0,
+    required: false,
+  },
   tags: {
     type: Array,
     lowercase: true,
+    required: false,
   },
   timestamp: {
     type: Date,
