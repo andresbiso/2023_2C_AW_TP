@@ -40,8 +40,8 @@ app.use(
 // app.use('', subpath);
 
 // Register Controllers
-app.use('/api/v1/users', usersCtrl);
-app.use('/api/v1/databases', databasesCtrl);
+app.use(usersCtrl);
+app.use(databasesCtrl);
 
 // Register Custom Middlewares
 app.use(errorHandlerMiddleware);

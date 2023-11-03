@@ -16,23 +16,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  firstName: {
+  first_name: {
     type: String,
-    required: false,
+    required: true,
   },
-  lastName: {
+  last_name: {
     type: String,
-    required: false,
-  },
-  email: {
-    type: String,
-    lowercase: true,
-    required: false,
-    unique: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
+    required: true,
   },
 });
 
@@ -49,4 +39,5 @@ const userSchema = new Schema({
 //   return result;
 // };
 
-module.exports = mongoose.model('users', userSchema);
+const User = mongoose.model('users', userSchema);
+module.exports = User;

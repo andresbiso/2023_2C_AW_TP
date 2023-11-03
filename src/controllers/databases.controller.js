@@ -1,8 +1,11 @@
 const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
 
-router.get('/', async (req, res) => {
+const router = express.Router();
+
+const basePath = '/api/databases';
+
+router.get(basePath + '/', async (req, res) => {
   try {
     const data = await mongoose.connection.db.admin().command({
       listDatabases: 1,
@@ -13,7 +16,6 @@ router.get('/', async (req, res) => {
     }
     res.status(200).send({ data: null, message: 'Data not found' });
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.log(e);
     res.status(500).send(e.message);
   }

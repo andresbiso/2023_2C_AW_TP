@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
-const articleSchema = new Schema({
-  article_id: {
+const blogSchema = new Schema({
+  blog_id: {
     type: Number,
     required: true,
   },
-  blog_id: {
+  user_id: {
     type: Number,
     required: true,
   },
@@ -17,10 +17,6 @@ const articleSchema = new Schema({
     type: String,
     required: false,
   },
-  timestamp: {
-    type: Date,
-    default: Date.now(),
-  },
 });
 
-module.exports = model('articles', articleSchema);
+module.exports = model('blogs', blogSchema);

@@ -1,8 +1,32 @@
 const express = require('express');
-const router = express.Router();
 const User = require('../models_mongodb/user.model');
 
-router.get('/', async (req, res) => {
+const router = express.Router();
+
+const basePath = '/api/users';
+
+router.get(basePath + '/', async (req, res) => {
+  const user_id = req.query.user_id;
+  const username = req.query.username;
+  const password = req.query.password;
+  const first_name = req.query.first_name;
+  const last_name = req.query.last_name;
+  const filters = {};
+  if (user_id) {
+    filters.user_id = parseInt(user_id);
+  }
+  if (username) {
+    filters.username = username;
+  }
+  if (password) {
+    filters.password = password;
+  }
+  if (first_name) {
+    filters.first_name = first_name;
+  }
+  if (last_name) {
+    filters.last_name = last_name;
+  }
   User.find({})
     .then((users) => {
       if (users && users !== null) {
@@ -17,32 +41,49 @@ router.get('/', async (req, res) => {
     });
 });
 
-// router.get('/', (req, res, next) => {
-//   let _id = req.query._id ? ObjectId(req.query._id) : null;
-//   var profile_id = req.query.profile_id;
-//   var username = req.query.username;
-//   var password = req.query.password;
-//   let where = {};
-//   if (_id) where._id = _id;
-//   if (profile_id) where.profile_id = parseInt(profile_id);
-//   if (username) where.username = username;
-//   if (password) where.password = password;
-
-//   users.find
-//     .find(where)
-//     .toArray((err, result) => {
-//       res.send(200, result);
-//     });
-// });
-
-// router.post('/', (req, res, next) => {
-//   db.collection('users').save(req.body, (err, result) => {
-//     if (err) return console.log(err);
-//     let user = result.ops[0];
-//     console.log('collection("users").save => user', user);
-//     res.status(200).send(user);
-//   });
-// });
+router.post(basePath + '/', (req, res) => {
+  const body = req.body;
+  if (Object.keys(req.body).length === 0) {
+    res.status(400).send('No parameters found in body');
+    return;
+  }
+  if (!body.user_id) {
+    res.status(400).send('user_id is missing');
+    return;
+  }
+  if (!body.username) {
+    res.status(400).send('username is missing');
+    return;
+  }
+  if (!body.password) {
+    res.status(400).send('password is missing');
+    return;
+  }
+  if (!body.first_name) {
+    res.status(400).send('first_name is missing');
+    return;
+  }
+  if (!body.last_name) {
+    res.status(400).send('first_name is missing');
+    return;
+  }
+  let newUser = new User({
+    user_id: body.user_id,
+    username: body.username,
+    password: body.password,
+    first_name: body.first_name,
+    last_name: body.last_name
+  });
+  newUser.save()
+    .then((result) => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err.message);
+    });
+});
 
 // router.put('/', (req, res, next) => {
 //   let vm = req.body;
