@@ -1,10 +1,10 @@
 {
-  "name": "nodejs_lectura_archivos",
+  "name": "nodejs_blog",
   "version": "1.0.0",
-  "description": "Mini app para realizar la lectura de archivos con nodejs",
-  "main": "index.js",
+  "description": "WebAPI para manejo de un blog",
+  "main": "server.js",
   "scripts": {
-    "start": "npx nodemon server.js",
+    "start": "npx nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
