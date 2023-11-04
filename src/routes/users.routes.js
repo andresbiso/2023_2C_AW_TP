@@ -15,6 +15,10 @@ router.put(basePath + '/:id', usersCtrl.updateUser);
 
 router.patch(basePath + '/:id', usersCtrl.partialUpdateUser);
 
+router.delete(basePath + '/:id', usersCtrl.deleteUser);
+
+router.head(basePath + '/:id', usersCtrl.validateUser);
+
 // router.delete('/', (req, res, next) => {
 //   let _id = req.query._id ? ObjectId(req.query._id) : null;
 //   console.log('_id', _id);

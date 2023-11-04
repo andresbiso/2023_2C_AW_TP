@@ -170,7 +170,7 @@ const updateUser = async (req, res) => {
   };
   const filter = { user_id: req.params.id };
 
-  User.findByIdAndUpdate(filter, update)
+  User.findOneAndUpdate(filter, update)
     .save()
     .then((result) => {
       console.log(result);
@@ -207,11 +207,42 @@ const partialUpdateUser = async (req, res) => {
   }
   const filter = { user_id: req.params.id };
 
-  User.findByIdAndUpdate(filter, update)
+  User.findOneAndUpdate(filter, update)
     .save()
     .then((result) => {
       console.log(result);
       res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err.message);
+    });
+};
+
+const deleteUser = async (req, res) => {
+  const filter = { user_id: req.params.id };
+  User.findOneAndDelete(filter)
+    .then((result) => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err.message);
+    });
+};
+
+const validateUser = async (req, res) => {
+  const filters = { user_id: req.params.id };
+  console.log(filters);
+  User.find(filters)
+    .then((users) => {
+      console.log(users);
+      if (users && users !== null) {
+        res.status(200).send();
+      } else {
+        res.status(404).send();
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -225,4 +256,6 @@ module.exports = {
   createUser,
   updateUser,
   partialUpdateUser,
+  deleteUser,
+  validateUser,
 };

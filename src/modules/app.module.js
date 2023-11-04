@@ -23,6 +23,7 @@ app.use(
     origin: true,
   }),
 );
+// All resources can get an options request
 app.options('*', cors());
 
 // BodyParser Configuration
