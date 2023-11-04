@@ -7,25 +7,13 @@ const basePath = '/api/users';
 
 router.get(basePath + '/', usersCtrl.getUsers);
 
-router.post(basePath + '/', usersCtrl.postUser);
+router.get(basePath + '/:id', usersCtrl.getUsersById);
 
-// router.put('/', (req, res, next) => {
-//   let vm = req.body;
-//   let _id = vm._id;
-//   delete vm['_id'];
-//   db.collection('users').updateOne(
-//     {
-//       _id: ObjectId(_id),
-//     },
-//     {
-//       $set: vm,
-//     },
-//     (err, result) => {
-//       if (err) return res.send(err);
-//       res.send(200);
-//     },
-//   );
-// });
+router.post(basePath + '/', usersCtrl.createUser);
+
+router.put(basePath + '/:id', usersCtrl.updateUser);
+
+router.patch(basePath + '/:id', usersCtrl.partialUpdateUser);
 
 // router.delete('/', (req, res, next) => {
 //   let _id = req.query._id ? ObjectId(req.query._id) : null;

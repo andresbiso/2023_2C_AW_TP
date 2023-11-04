@@ -5,8 +5,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../configs/swagger.json');
 
 // Routes
-const usersRoute = require('../routes/users.route');
-const databasesRoute = require('../routes/databases.route');
+const usersRoutes = require('../routes/users.routes');
+const databasesRoutes = require('../routes/databases.routes');
 
 const errorHandlerMiddleware = require('../middlewares/error-handler.middleware');
 
@@ -40,8 +40,8 @@ app.use(
 // app.use('', subpath);
 
 // Register Routes
-app.use(usersRoute);
-app.use(databasesRoute);
+app.use(usersRoutes);
+app.use(databasesRoutes);
 
 // Register Custom Middlewares
 app.use(errorHandlerMiddleware);
