@@ -127,8 +127,7 @@ const createUser = async (req, res) => {
   newUser
     .save()
     .then((result) => {
-      console.log(result);
-      res.status(200).send(result);
+      res.status(200).send({ data: result, message: 'User created' });
     })
     .catch((err) => {
       console.log(err);
@@ -171,10 +170,12 @@ const updateUser = async (req, res) => {
   const filter = { user_id: req.params.id };
 
   User.findOneAndUpdate(filter, update)
-    .save()
     .then((result) => {
-      console.log(result);
-      res.status(200).send(result);
+      if (result) {
+        res.status(200).send({ data: null, message: 'User updated' });
+      } else {
+        res.status(404).send({ data: null, message: 'User not found' });
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -208,10 +209,12 @@ const partialUpdateUser = async (req, res) => {
   const filter = { user_id: req.params.id };
 
   User.findOneAndUpdate(filter, update)
-    .save()
     .then((result) => {
-      console.log(result);
-      res.status(200).send(result);
+      if (result) {
+        res.status(200).send({ data: null, message: 'User updated' });
+      } else {
+        res.status(404).send({ data: null, message: 'User not found' });
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -223,25 +226,10 @@ const deleteUser = async (req, res) => {
   const filter = { user_id: req.params.id };
   User.findOneAndDelete(filter)
     .then((result) => {
-      console.log(result);
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message);
-    });
-};
-
-const validateUser = async (req, res) => {
-  const filters = { user_id: req.params.id };
-  console.log(filters);
-  User.find(filters)
-    .then((users) => {
-      console.log(users);
-      if (users && users !== null) {
-        res.status(200).send();
+      if (result) {
+        res.status(200).send({ data: null, message: 'User deleted' });
       } else {
-        res.status(404).send();
+        res.status(404).send({ data: null, message: 'User not found' });
       }
     })
     .catch((err) => {
@@ -257,5 +245,4 @@ module.exports = {
   updateUser,
   partialUpdateUser,
   deleteUser,
-  validateUser,
 };
