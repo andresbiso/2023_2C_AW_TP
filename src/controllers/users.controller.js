@@ -61,7 +61,7 @@ const getUsers = async (req, res) => {
       if (users && users !== null) {
         res.status(200).send({ data: users });
       } else {
-        res.status(404).send({ data: null, message: 'Data not found' });
+        res.status(404).send({ data: null, message: 'Users not found' });
       }
     })
     .catch((err) => {
@@ -77,7 +77,7 @@ const getUsersById = async (req, res) => {
       if (users && users !== null) {
         res.status(200).send({ data: users });
       } else {
-        res.status(404).send({ data: null, message: 'Data not found' });
+        res.status(404).send({ data: null, message: 'User not found' });
       }
     })
     .catch((err) => {
