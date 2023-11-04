@@ -1,11 +1,6 @@
-const express = require('express');
 const User = require('../models_mongodb/user.model');
 
-const router = express.Router();
-
-const basePath = '/api/users';
-
-router.get(basePath + '/', async (req, res) => {
+const getUsers = async (req, res) => {
   const user_id = req.query.user_id;
   const username = req.query.username;
   const password = req.query.password;
@@ -39,9 +34,9 @@ router.get(basePath + '/', async (req, res) => {
       console.log(err);
       res.status(500).send(err.message);
     });
-});
+};
 
-router.post(basePath + '/', (req, res) => {
+const postUser = async (req, res) => {
   const body = req.body;
   if (Object.keys(req.body).length === 0) {
     res.status(400).send('No parameters found in body');
@@ -72,9 +67,10 @@ router.post(basePath + '/', (req, res) => {
     username: body.username,
     password: body.password,
     first_name: body.first_name,
-    last_name: body.last_name
+    last_name: body.last_name,
   });
-  newUser.save()
+  newUser
+    .save()
     .then((result) => {
       console.log(result);
       res.status(200).send(result);
@@ -83,46 +79,6 @@ router.post(basePath + '/', (req, res) => {
       console.log(err);
       res.status(500).send(err.message);
     });
-});
+};
 
-// router.put('/', (req, res, next) => {
-//   let vm = req.body;
-//   let _id = vm._id;
-//   delete vm['_id'];
-//   db.collection('users').updateOne(
-//     {
-//       _id: ObjectId(_id),
-//     },
-//     {
-//       $set: vm,
-//     },
-//     (err, result) => {
-//       if (err) return res.send(err);
-//       res.send(200);
-//     },
-//   );
-// });
-
-// router.delete('/', (req, res, next) => {
-//   let _id = req.query._id ? ObjectId(req.query._id) : null;
-//   console.log('_id', _id);
-//   if (!_id) {
-//     res.send(400, 'Inform the user ID');
-//     return;
-//   }
-//   let filter = { _id: _id };
-//   db.collection('users')
-//     .find(filter)
-//     .toArray((err, result) => {
-//       if (result.length === 0) {
-//         res.send(400, 'User not found');
-//         return;
-//       }
-//       db.collection('users').deleteOne(filter, (err, result) => {
-//         if (err) return res.send(500, err);
-//         res.send(200);
-//       });
-//     });
-// });
-
-module.exports = router;
+module.exports = { getUsers, postUser };

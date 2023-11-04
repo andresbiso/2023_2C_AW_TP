@@ -4,9 +4,9 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../configs/swagger.json');
 
-// Controllers
-const usersCtrl = require('../controllers/users.controller');
-const databasesCtrl = require('../controllers/databases.controller');
+// Routes
+const usersRoute = require('../routes/users.route');
+const databasesRoute = require('../routes/databases.route');
 
 const errorHandlerMiddleware = require('../middlewares/error-handler.middleware');
 
@@ -39,9 +39,9 @@ app.use(
 );
 // app.use('', subpath);
 
-// Register Controllers
-app.use(usersCtrl);
-app.use(databasesCtrl);
+// Register Routes
+app.use(usersRoute);
+app.use(databasesRoute);
 
 // Register Custom Middlewares
 app.use(errorHandlerMiddleware);
@@ -56,7 +56,7 @@ app.get('/', function (req, res) {
 
 // Catch-all route
 app.get('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
+  return res.status(400).json({ message: 'Bad Request' });
 });
 
 module.exports = app;

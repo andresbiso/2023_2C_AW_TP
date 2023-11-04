@@ -1,11 +1,6 @@
-const express = require('express');
 const mongoose = require('mongoose');
 
-const router = express.Router();
-
-const basePath = '/api/databases';
-
-router.get(basePath + '/', async (req, res) => {
+const getDatabases = async (req, res) => {
   try {
     const data = await mongoose.connection.db.admin().command({
       listDatabases: 1,
@@ -19,6 +14,6 @@ router.get(basePath + '/', async (req, res) => {
     console.log(e);
     res.status(500).send(e.message);
   }
-});
+};
 
-module.exports = router;
+module.exports = { getDatabases };
