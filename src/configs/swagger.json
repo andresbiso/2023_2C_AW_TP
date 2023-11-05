@@ -11,14 +11,133 @@
   "tags": [
     {
       "name": "Users",
-      "description": "User actions"
+      "description": "Users actions"
+    },
+    {
+      "name": "Blogs",
+      "description": "Blogs actions"
+    },
+    {
+      "name": "Articles",
+      "description": "Articles actions"
+    },
+    {
+      "name": "Comments",
+      "description": "Comments actions"
+    },
+    {
+      "name": "General",
+      "description": "Other common requests"
     }
   ],
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/api/v1/users": {
+    "/": {
+      "options": {
+        "tags": ["General"],
+        "description": "List Options",
+        "produces": ["application/json"],
+        "responses": {
+          "204": {
+            "schema": {
+              "$ref": "#/definitions/no_content"
+            }
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "tags": ["Users"],
+        "description": "List users",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/username"
+            },
+            "example": "test_user_1"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/password"
+            },
+            "example": "test_pass_1"
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/first_name"
+            },
+            "example": "test_first_name_1"
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/last_name"
+            },
+            "example": "test_last_name_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
       "post": {
         "tags": ["Users"],
         "description": "Create user",
@@ -87,31 +206,6 @@
           }
         }
       },
-      "get": {
-        "tags": ["Users"],
-        "description": "List users",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "user_id",
-            "in": "query",
-            "schema": {
-              "$ref": "#/definitions/user_id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "500": {
-            "description": "Server Error",
-            "schema": {
-              "$ref": "#/definitions/server_error"
-            }
-          }
-        }
-      },
       "delete": {
         "tags": ["Users"],
         "description": "Delete user",
@@ -137,32 +231,164 @@
           }
         }
       }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get user by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
     "user_id": {
       "type": "number",
-      "description": "Id for User",
-      "example": 1
+      "description": "Id for User"
+    },
+    "blog_id": {
+      "type": "number",
+      "description": "Id for Blog"
+    },
+    "article_id": {
+      "type": "number",
+      "description": "Id for Article"
+    },
+    "comment_id": {
+      "type": "number",
+      "description": "Id for Comment"
     },
     "username": {
       "type": "string",
-      "description": "Username for login",
-      "example": "luke"
+      "description": "Username for login"
     },
     "password": {
       "type": "string",
-      "description": "User password for login",
-      "example": "1234"
+      "description": "User password for login"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "User first name"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "User last name"
+    },
+    "title": {
+      "type": "string",
+      "description": "Add a title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Add a description"
+    },
+    "content": {
+      "type": "string",
+      "description": "Add some content"
+    },
+    "page": {
+      "type": "number",
+      "description": "Current Page",
+      "example": "1"
+    },
+    "limit": {
+      "type": "number",
+      "description": "Number of elements",
+      "example": "10"
+    },
+    "sort": {
+      "type": "string",
+      "description": "asc | desc",
+      "example": "asc"
+    },
+    "sort_by": {
+      "type": "string",
+      "description": "Resource field",
+      "example": "first_name"
     },
     "server_error": {
       "type": "object",
-      "description": "Server Error",
+      "description": "500 Server Error",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "500 Server Error",
+          "example": "500 Server Error"
+        }
+      }
+    },
+    "bad_request": {
+      "type": "object",
+      "description": "400 Bad Request",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "400 Bad Request",
+          "example": "400 Bad Request"
+        }
+      }
+    },
+    "not_found": {
+      "type": "object",
+      "description": "404 Not Found",
       "properties": {
         "msg": {
           "type": "string",
-          "description": "Server Error",
-          "example": "Server Error"
+          "description": "404 Not Found",
+          "example": "404 Not Found"
+        }
+      }
+    },
+    "success": {
+      "type": "object",
+      "description": "200 OK",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "200 OK",
+          "example": "200 OK"
+        }
+      }
+    },
+    "no_content": {
+      "type": "object",
+      "description": "204 No Content",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "204 No Content",
+          "example": "204 No Content"
         }
       }
     }
