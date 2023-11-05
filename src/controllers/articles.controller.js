@@ -11,7 +11,7 @@ const getArticles = async (req, res) => {
   const article_id = req.query.article_id;
   const blog_id = req.query.blog_id;
   const title = req.query.title;
-  const description = req.query.description;
+  const content = req.query.content;
   const timestamp = req.query.timestamp;
   const page = req.query.page;
   const limit = req.query.limit;
@@ -30,8 +30,8 @@ const getArticles = async (req, res) => {
   if (title) {
     filters.title = title;
   }
-  if (description) {
-    filters.description = description;
+  if (content) {
+    filters.content = content;
   }
   if (timestamp) {
     filters.timestamp = timestamp;
@@ -98,7 +98,7 @@ const createArticle = async (req, res) => {
   const article_id = body.article_id;
   const blog_id = body.blog_id;
   const title = body.title;
-  const description = body.description;
+  const content = body.content;
   if (Object.keys(req.body).length === 0) {
     res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
@@ -115,15 +115,15 @@ const createArticle = async (req, res) => {
     res.status(400).send(formatResponse(null, 'title is missing'));
     return;
   }
-  if (!description) {
-    res.status(400).send(formatResponse(null, 'description is missing'));
+  if (!content) {
+    res.status(400).send(formatResponse(null, 'content is missing'));
     return;
   }
   const newArticle = new Article({
     article_id: article_id,
     blog_id: blog_id,
     title: title,
-    description: description,
+    content: content,
   });
   newArticle
     .save()
@@ -140,7 +140,7 @@ const updateArticle = async (req, res) => {
   const body = req.body;
   const blog_id = body.blog_id;
   const title = body.title;
-  const description = body.description;
+  const content = body.content;
   if (Object.keys(req.body).length === 0) {
     res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
@@ -153,14 +153,14 @@ const updateArticle = async (req, res) => {
     res.status(400).send(formatResponse(null, 'title is missing'));
     return;
   }
-  if (!description) {
-    res.status(400).send(formatResponse(null, 'description is missing'));
+  if (!content) {
+    res.status(400).send(formatResponse(null, 'content is missing'));
     return;
   }
   const update = {
     blog_id: blog_id,
     title: title,
-    description: description,
+    content: content,
   };
   const filter = { article_id: req.params.id };
 
@@ -182,7 +182,7 @@ const partialUpdateArticle = async (req, res) => {
   const body = req.body;
   const blog_id = body.blog_id;
   const title = body.title;
-  const description = body.description;
+  const content = body.content;
   if (Object.keys(req.body).length === 0) {
     res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
@@ -194,8 +194,8 @@ const partialUpdateArticle = async (req, res) => {
   if (title) {
     update.title = title;
   }
-  if (description) {
-    update.description = description;
+  if (content) {
+    update.content = content;
   }
   const filter = { article_id: req.params.id };
 

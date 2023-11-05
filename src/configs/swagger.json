@@ -649,7 +649,7 @@
               "title": {
                 "$ref": "#/definitions/title"
               },
-              "password": {
+              "description": {
                 "$ref": "#/definitions/description"
               }
             },
@@ -743,7 +743,7 @@
               "title": {
                 "$ref": "#/definitions/title"
               },
-              "password": {
+              "description": {
                 "$ref": "#/definitions/description"
               }
             },
@@ -804,7 +804,7 @@
               "title": {
                 "$ref": "#/definitions/title"
               },
-              "password": {
+              "description": {
                 "$ref": "#/definitions/description"
               }
             },
@@ -955,6 +955,760 @@
           "400": {
             "schema": {
               "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/articles": {
+      "get": {
+        "tags": ["Articles"],
+        "description": "List articles",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blog_id",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/blog_id"
+            },
+            "example": 1
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/title"
+            },
+            "example": "test_title_1"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/content"
+            },
+            "example": "test_content_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Articles"],
+        "description": "Create article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "article_model",
+            "required": ["article_id", "blog_id", "title", "content"],
+            "in": "body",
+            "properties": {
+              "article_id": {
+                "$ref": "#/definitions/article_id"
+              },
+              "blog_id": {
+                "$ref": "#/definitions/blog_id"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "article_id": 1,
+              "blog_id": 1,
+              "title": "test_title_1",
+              "content": "test_content_1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/articles/{id}": {
+      "get": {
+        "tags": ["Articles"],
+        "description": "Get article by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "article_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Articles"],
+        "description": "Update article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "article_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "article_model",
+            "required": ["blog_id", "title", "content"],
+            "in": "body",
+            "properties": {
+              "blog_id": {
+                "$ref": "#/definitions/blog_id"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "user_id": 1,
+              "title": "test_title_1b",
+              "content": "test_content_1b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Articles"],
+        "description": "Partially Update article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "article_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "article_model",
+            "required": ["blog_id", "title", "content"],
+            "in": "body",
+            "properties": {
+              "blog_id": {
+                "$ref": "#/definitions/blog_id"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "title": "test_title_1c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Articles"],
+        "description": "Delete article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "article_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/articles/{id}/comments": {
+      "get": {
+        "tags": ["Articles"],
+        "description": "Get article comments",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "article_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "blog_id",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/blog_id"
+            },
+            "example": 1
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/title"
+            },
+            "example": "test_title_1"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/description"
+            },
+            "example": "test_content_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/comments": {
+      "get": {
+        "tags": ["Comments"],
+        "description": "List comments",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/article_id"
+            },
+            "example": 1
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/user_id"
+            },
+            "example": 1
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/content"
+            },
+            "example": "test_description_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Comments"],
+        "description": "Create comment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "comment_model",
+            "required": ["comment_id", "article_id", "user_id", "content"],
+            "in": "body",
+            "properties": {
+              "comment_id": {
+                "$ref": "#/definitions/comment_id"
+              },
+              "article_id": {
+                "$ref": "#/definitions/article_id"
+              },
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "comment_id": 1,
+              "article_id": 1,
+              "user_id": 1,
+              "content": "test_content_1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/comments/{id}": {
+      "get": {
+        "tags": ["Comments"],
+        "description": "Get comment by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "comment_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Comments"],
+        "description": "Update comment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "comment_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "comment_model",
+            "required": ["article_id", "user_id", "content"],
+            "in": "body",
+            "properties": {
+              "article_id": {
+                "$ref": "#/definitions/article_id"
+              },
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "article_id": 1,
+              "user_id": 1,
+              "content": "test_content_1b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Comments"],
+        "description": "Partially Update comment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "comment_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "comment_model",
+            "required": ["article_id", "user_id", "content"],
+            "in": "body",
+            "properties": {
+              "article_id": {
+                "$ref": "#/definitions/article_id"
+              },
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "content": {
+                "$ref": "#/definitions/content"
+              }
+            },
+            "example": {
+              "content": "test_content_1c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Comments"],
+        "description": "Delete comment",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "comment_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
             }
           },
           "404": {

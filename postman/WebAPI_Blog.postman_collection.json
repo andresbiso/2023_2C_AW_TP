@@ -366,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"article_id\": 1,\n    \"blog_id\": 1,\n    \"title\": \"test_title_1\",\n    \"description\": \"test_description_1\"\n}",
+							"raw": "{\n    \"article_id\": 1,\n    \"blog_id\": 1,\n    \"title\": \"test_title_1\",\n    \"content\": \"test_content_1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -476,7 +476,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"blog_id\": 1,\n    \"title\": \"test_title_1b\",\n    \"description\": \"test_description_1b\"\n}",
+							"raw": "{\n    \"blog_id\": 1,\n    \"title\": \"test_title_1b\",\n    \"content\": \"test_content_1b\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -506,7 +506,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"test_description_1c\"\n}",
+							"raw": "{\n    \"content\": \"test_content_1c\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
