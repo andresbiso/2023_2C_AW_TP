@@ -305,7 +305,7 @@
       },
       "patch": {
         "tags": ["Users"],
-        "description": "Update user",
+        "description": "Partially Update user",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -559,28 +559,20 @@
             "example": 1
           },
           {
-            "name": "password",
+            "name": "title",
             "in": "query",
             "schema": {
-              "$ref": "#/definitions/password"
+              "$ref": "#/definitions/title"
             },
-            "example": "test_pass_1"
+            "example": "test_title_1"
           },
           {
-            "name": "first_name",
+            "name": "description",
             "in": "query",
             "schema": {
-              "$ref": "#/definitions/first_name"
+              "$ref": "#/definitions/description"
             },
-            "example": "test_first_name_1"
-          },
-          {
-            "name": "last_name",
-            "in": "query",
-            "schema": {
-              "$ref": "#/definitions/last_name"
-            },
-            "example": "test_last_name_1"
+            "example": "test_description_1"
           },
           {
             "name": "page",
@@ -639,43 +631,33 @@
         }
       },
       "post": {
-        "tags": ["Users"],
-        "description": "Create user",
+        "tags": ["Blogs"],
+        "description": "Create blog",
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "user_model",
-            "required": [
-              "user_id",
-              "username",
-              "password",
-              "first_name",
-              "last_name"
-            ],
+            "name": "blog_model",
+            "required": ["blog_id", "user_id", "title", "description"],
             "in": "body",
             "properties": {
+              "blog_id": {
+                "$ref": "#/definitions/blog_id"
+              },
               "user_id": {
                 "$ref": "#/definitions/user_id"
               },
-              "username": {
-                "$ref": "#/definitions/username"
+              "title": {
+                "$ref": "#/definitions/title"
               },
               "password": {
-                "$ref": "#/definitions/password"
-              },
-              "first_name": {
-                "$ref": "#/definitions/first_name"
-              },
-              "last_name": {
-                "$ref": "#/definitions/last_name"
+                "$ref": "#/definitions/description"
               }
             },
             "example": {
+              "blog_id": 1,
               "user_id": 1,
-              "username": "test_user_1",
-              "password": "test_pass_1",
-              "first_name": "test_first_name_1",
-              "last_name": "test_last_name_1"
+              "title": "test_title_1",
+              "description": "test_description_1"
             }
           }
         ],
@@ -701,13 +683,13 @@
     "/api/blogs/{id}": {
       "get": {
         "tags": ["Blogs"],
-        "description": "Get user by id",
+        "description": "Get blog by id",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "path",
             "name": "id",
-            "description": "user_id",
+            "description": "blog_id",
             "required": "true",
             "type": "integer",
             "format": "int32",
@@ -735,14 +717,14 @@
         }
       },
       "put": {
-        "tags": ["Users"],
-        "description": "Update user",
+        "tags": ["Blogs"],
+        "description": "Update blog",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "path",
             "name": "id",
-            "description": "user_id",
+            "description": "blog_id",
             "required": "true",
             "type": "integer",
             "format": "int32",
@@ -751,28 +733,24 @@
             "example": 1
           },
           {
-            "name": "user_model",
-            "required": ["username", "password", "first_name", "last_name"],
+            "name": "blog_model",
+            "required": ["user_id", "title", "description"],
             "in": "body",
             "properties": {
-              "username": {
-                "$ref": "#/definitions/username"
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
               },
               "password": {
-                "$ref": "#/definitions/password"
-              },
-              "first_name": {
-                "$ref": "#/definitions/first_name"
-              },
-              "last_name": {
-                "$ref": "#/definitions/last_name"
+                "$ref": "#/definitions/description"
               }
             },
             "example": {
-              "username": "test_user_1b",
-              "password": "test_pass_1b",
-              "first_name": "test_first_name_1b",
-              "last_name": "test_last_name_1b"
+              "user_id": 1,
+              "title": "test_title_1b",
+              "description": "test_description_1b"
             }
           }
         ],
@@ -800,14 +778,14 @@
         }
       },
       "patch": {
-        "tags": ["Users"],
-        "description": "Update user",
+        "tags": ["Blogs"],
+        "description": "Partially Update blog",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "path",
             "name": "id",
-            "description": "user_id",
+            "description": "blog_id",
             "required": "true",
             "type": "integer",
             "format": "int32",
@@ -816,25 +794,22 @@
             "example": 1
           },
           {
-            "name": "user_model",
-            "required": [],
+            "name": "blog_model",
+            "required": ["user_id", "title", "description"],
             "in": "body",
             "properties": {
-              "username": {
-                "$ref": "#/definitions/username"
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
               },
               "password": {
-                "$ref": "#/definitions/password"
-              },
-              "first_name": {
-                "$ref": "#/definitions/first_name"
-              },
-              "last_name": {
-                "$ref": "#/definitions/last_name"
+                "$ref": "#/definitions/description"
               }
             },
             "example": {
-              "first_name": "test_first_name_1c"
+              "title": "test_title_1c"
             }
           }
         ],
@@ -862,14 +837,14 @@
         }
       },
       "delete": {
-        "tags": ["Users"],
-        "description": "Delete user",
+        "tags": ["Blogs"],
+        "description": "Delete blog",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "path",
             "name": "id",
-            "description": "user_id",
+            "description": "blog_id",
             "required": "true",
             "type": "integer",
             "format": "int32",
@@ -906,7 +881,7 @@
           {
             "in": "path",
             "name": "id",
-            "description": "user_id",
+            "description": "blog_id",
             "required": "true",
             "type": "integer",
             "format": "int32",
@@ -915,36 +890,28 @@
             "example": 1
           },
           {
-            "name": "username",
+            "name": "user_id",
             "in": "query",
             "schema": {
-              "$ref": "#/definitions/username"
+              "$ref": "#/definitions/user_id"
             },
-            "example": "test_user_1"
+            "example": 1
           },
           {
-            "name": "password",
+            "name": "title",
             "in": "query",
             "schema": {
-              "$ref": "#/definitions/password"
+              "$ref": "#/definitions/title"
             },
-            "example": "test_pass_1"
+            "example": "test_title_1"
           },
           {
-            "name": "first_name",
+            "name": "description",
             "in": "query",
             "schema": {
-              "$ref": "#/definitions/first_name"
+              "$ref": "#/definitions/description"
             },
-            "example": "test_first_name_1"
-          },
-          {
-            "name": "last_name",
-            "in": "query",
-            "schema": {
-              "$ref": "#/definitions/last_name"
-            },
-            "example": "test_last_name_1"
+            "example": "test_description_1"
           },
           {
             "name": "page",
