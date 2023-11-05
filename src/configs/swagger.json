@@ -400,6 +400,608 @@
           }
         }
       }
+    },
+    "/api/users/{id}/blogs": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get user blogs",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/username"
+            },
+            "example": "test_user_1"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/password"
+            },
+            "example": "test_pass_1"
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/first_name"
+            },
+            "example": "test_first_name_1"
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/last_name"
+            },
+            "example": "test_last_name_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/report": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get user report",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/blogs": {
+      "get": {
+        "tags": ["Blogs"],
+        "description": "List blogs",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/user_id"
+            },
+            "example": 1
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/password"
+            },
+            "example": "test_pass_1"
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/first_name"
+            },
+            "example": "test_first_name_1"
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/last_name"
+            },
+            "example": "test_last_name_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "Create user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "user_model",
+            "required": [
+              "user_id",
+              "username",
+              "password",
+              "first_name",
+              "last_name"
+            ],
+            "in": "body",
+            "properties": {
+              "user_id": {
+                "$ref": "#/definitions/user_id"
+              },
+              "username": {
+                "$ref": "#/definitions/username"
+              },
+              "password": {
+                "$ref": "#/definitions/password"
+              },
+              "first_name": {
+                "$ref": "#/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/last_name"
+              }
+            },
+            "example": {
+              "user_id": 1,
+              "username": "test_user_1",
+              "password": "test_pass_1",
+              "first_name": "test_first_name_1",
+              "last_name": "test_last_name_1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/blogs/{id}": {
+      "get": {
+        "tags": ["Blogs"],
+        "description": "Get user by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "description": "Update user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "user_model",
+            "required": ["username", "password", "first_name", "last_name"],
+            "in": "body",
+            "properties": {
+              "username": {
+                "$ref": "#/definitions/username"
+              },
+              "password": {
+                "$ref": "#/definitions/password"
+              },
+              "first_name": {
+                "$ref": "#/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/last_name"
+              }
+            },
+            "example": {
+              "username": "test_user_1b",
+              "password": "test_pass_1b",
+              "first_name": "test_first_name_1b",
+              "last_name": "test_last_name_1b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "description": "Update user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "user_model",
+            "required": [],
+            "in": "body",
+            "properties": {
+              "username": {
+                "$ref": "#/definitions/username"
+              },
+              "password": {
+                "$ref": "#/definitions/password"
+              },
+              "first_name": {
+                "$ref": "#/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/last_name"
+              }
+            },
+            "example": {
+              "first_name": "test_first_name_1c"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "description": "Delete user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
+    },
+    "/api/blogs/{id}/articles": {
+      "get": {
+        "tags": ["Blogs"],
+        "description": "Get blog articles",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/username"
+            },
+            "example": "test_user_1"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/password"
+            },
+            "example": "test_pass_1"
+          },
+          {
+            "name": "first_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/first_name"
+            },
+            "example": "test_first_name_1"
+          },
+          {
+            "name": "last_name",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/last_name"
+            },
+            "example": "test_last_name_1"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/page"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/limit"
+            },
+            "example": "10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "$ref": "#/definitions/sort_by"
+            },
+            "example": "first_name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
