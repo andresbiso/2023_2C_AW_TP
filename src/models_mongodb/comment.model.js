@@ -17,6 +17,10 @@ const commentSchema = new Schema({
     type: String,
     required: false,
   },
+  timestamp: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = model('comments', commentSchema);

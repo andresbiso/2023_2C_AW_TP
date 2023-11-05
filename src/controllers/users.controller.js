@@ -1,5 +1,6 @@
 const { join } = require('path');
 const User = require('../models_mongodb/user.model');
+const { formatResponse } = require('../utils/utils');
 require('dotenv').config({ path: join(__dirname, '..', '/configs/.env') });
 
 const defaultSort = process.env.DEFAULT_SORT;
@@ -37,14 +38,20 @@ const getUsers = async (req, res) => {
   }
   if (limit) {
     if (limit < 0) {
-      res.status(400).send('Limit parameter must be greater or equal to 0');
+      res
+        .status(400)
+        .send(
+          formatResponse(null, 'Limit parameter must be greater or equal to 0'),
+        );
       return;
     }
     limitValue = limit;
   }
   if (page) {
     if (page <= 0) {
-      res.status(400).send('Page parameter must be greater than 0');
+      res
+        .status(400)
+        .send(formatResponse(null, 'Page parameter must be greater than 0'));
       return;
     }
     skipValue = (page - 1) * limitValue;
@@ -59,30 +66,30 @@ const getUsers = async (req, res) => {
     .sort(sortConfig)
     .then((users) => {
       if (users && users !== null) {
-        res.status(200).send({ data: users });
+        res.status(200).send(formatResponse(users, null));
       } else {
-        res.status(404).send({ data: null, message: 'Users not found' });
+        res.status(404).send(formatResponse(null, 'Users not found'));
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
-const getUsersById = async (req, res) => {
+const getUserById = async (req, res) => {
   const filters = { user_id: req.params.id };
   User.find(filters)
     .then((users) => {
       if (users && users !== null) {
-        res.status(200).send({ data: users });
+        res.status(200).send(formatResponse(users, null));
       } else {
-        res.status(404).send({ data: null, message: 'User not found' });
+        res.status(404).send(formatResponse(null, 'User not found'));
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
@@ -94,27 +101,27 @@ const createUser = async (req, res) => {
   const first_name = body.first_name;
   const last_name = body.last_name;
   if (Object.keys(req.body).length === 0) {
-    res.status(400).send('No parameters found in body');
+    res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
   }
   if (!user_id) {
-    res.status(400).send('user_id is missing');
+    res.status(400).send(formatResponse(null, 'user_id is missing'));
     return;
   }
   if (!username) {
-    res.status(400).send('username is missing');
+    res.status(400).send(formatResponse(null, 'username is missing'));
     return;
   }
   if (!password) {
-    res.status(400).send('password is missing');
+    res.status(400).send(formatResponse(null, 'password is missing'));
     return;
   }
   if (!first_name) {
-    res.status(400).send('first_name is missing');
+    res.status(400).send(formatResponse(null, 'first_name is missing'));
     return;
   }
   if (!last_name) {
-    res.status(400).send('last_name is missing');
+    res.status(400).send(formatResponse(null, 'last_name is missing'));
     return;
   }
   const newUser = new User({
@@ -127,11 +134,11 @@ const createUser = async (req, res) => {
   newUser
     .save()
     .then((result) => {
-      res.status(200).send({ data: result, message: 'User created' });
+      res.status(200).send(formatResponse(result, 'User created'));
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
@@ -142,23 +149,23 @@ const updateUser = async (req, res) => {
   const first_name = body.first_name;
   const last_name = body.last_name;
   if (Object.keys(req.body).length === 0) {
-    res.status(400).send('No parameters found in body');
+    res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
   }
   if (!username) {
-    res.status(400).send('username is missing');
+    res.status(400).send(formatResponse(null, 'username is missing'));
     return;
   }
   if (!password) {
-    res.status(400).send('password is missing');
+    res.status(400).send(formatResponse(null, 'password is missing'));
     return;
   }
   if (!first_name) {
-    res.status(400).send('first_name is missing');
+    res.status(400).send(formatResponse(null, 'first_name is missing'));
     return;
   }
   if (!last_name) {
-    res.status(400).send('last_name is missing');
+    res.status(400).send(formatResponse(null, 'last_name is missing'));
     return;
   }
   const update = {
@@ -172,14 +179,14 @@ const updateUser = async (req, res) => {
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       if (result) {
-        res.status(200).send({ data: null, message: 'User updated' });
+        res.status(200).send(formatResponse(null, 'User updated'));
       } else {
-        res.status(404).send({ data: null, message: 'User not found' });
+        res.status(404).send(formatResponse(null, 'User not found'));
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
@@ -190,7 +197,7 @@ const partialUpdateUser = async (req, res) => {
   const first_name = body.first_name;
   const last_name = body.last_name;
   if (Object.keys(req.body).length === 0) {
-    res.status(400).send('No parameters found in body');
+    res.status(400).send(formatResponse(null, 'No parameters found in body'));
     return;
   }
   const update = {};
@@ -211,14 +218,14 @@ const partialUpdateUser = async (req, res) => {
   User.findOneAndUpdate(filter, update)
     .then((result) => {
       if (result) {
-        res.status(200).send({ data: null, message: 'User updated' });
+        res.status(200).send(formatResponse(null, 'User updated'));
       } else {
-        res.status(404).send({ data: null, message: 'User not found' });
+        res.status(404).send(formatResponse(null, 'User not found'));
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
@@ -227,20 +234,20 @@ const deleteUser = async (req, res) => {
   User.findOneAndDelete(filter)
     .then((result) => {
       if (result) {
-        res.status(200).send({ data: null, message: 'User deleted' });
+        res.status(200).send(formatResponse(null, 'User deleted'));
       } else {
-        res.status(404).send({ data: null, message: 'User not found' });
+        res.status(404).send(formatResponse(null, 'User not found'));
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).send(err.message);
+      res.status(500).send(formatResponse(null, err.message));
     });
 };
 
 module.exports = {
   getUsers,
-  getUsersById,
+  getUserById,
   createUser,
   updateUser,
   partialUpdateUser,

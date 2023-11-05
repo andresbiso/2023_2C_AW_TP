@@ -7,7 +7,7 @@ const basePath = '/api/users';
 
 router.get(basePath + '/', usersCtrl.getUsers);
 
-router.get(basePath + '/:id', usersCtrl.getUsersById);
+router.get(basePath + '/:id', usersCtrl.getUserById);
 
 router.post(basePath + '/', usersCtrl.createUser);
 

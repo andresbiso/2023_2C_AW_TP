@@ -6,6 +6,9 @@ const swaggerDocument = require('../configs/swagger.json');
 
 // Routes
 const usersRoutes = require('../routes/users.routes');
+const blogsRoutes = require('../routes/blogs.routes');
+const articlesRoutes = require('../routes/articles.routes');
+const commentsRoutes = require('../routes/comments.routes');
 const databasesRoutes = require('../routes/databases.routes');
 
 const errorHandlerMiddleware = require('../middlewares/error-handler.middleware');
@@ -51,6 +54,9 @@ app.use(
 
 // Register Routes
 app.use(usersRoutes);
+app.use(blogsRoutes);
+app.use(articlesRoutes);
+app.use(commentsRoutes);
 app.use(databasesRoutes);
 
 // Register Custom Middlewares
