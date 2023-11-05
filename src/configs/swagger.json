@@ -91,28 +91,32 @@
             "in": "query",
             "schema": {
               "$ref": "#/definitions/page"
-            }
+            },
+            "example": "1"
           },
           {
             "name": "limit",
             "in": "query",
             "schema": {
               "$ref": "#/definitions/limit"
-            }
+            },
+            "example": "10"
           },
           {
             "name": "sort",
             "in": "query",
             "schema": {
               "$ref": "#/definitions/sort"
-            }
+            },
+            "example": "asc"
           },
           {
             "name": "sort_by",
             "in": "query",
             "schema": {
               "$ref": "#/definitions/sort_by"
-            }
+            },
+            "example": "first_name"
           }
         ],
         "responses": {
@@ -144,11 +148,17 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "model",
-            "required": ["user_id", "username", "password"],
+            "name": "user_model",
+            "required": [
+              "user_id",
+              "username",
+              "password",
+              "first_name",
+              "last_name"
+            ],
             "in": "body",
             "properties": {
-              "profile_id": {
+              "user_id": {
                 "$ref": "#/definitions/user_id"
               },
               "username": {
@@ -156,7 +166,20 @@
               },
               "password": {
                 "$ref": "#/definitions/password"
+              },
+              "first_name": {
+                "$ref": "#/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/last_name"
               }
+            },
+            "example": {
+              "user_id": 1,
+              "username": "test_user_1",
+              "password": "test_pass_1",
+              "first_name": "test_first_name_1",
+              "last_name": "test_last_name_1"
             }
           }
         ],
