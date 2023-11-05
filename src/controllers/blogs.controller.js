@@ -61,7 +61,7 @@ const getBlogs = async (req, res) => {
     .limit(limitValue)
     .sort(sortConfig)
     .then((blogs) => {
-      if (blogs && blogs !== null) {
+      if (blogs && blogs.length > 0) {
         res.status(200).send(formatResponse(blogs, null));
       } else {
         res.status(404).send(formatResponse(null, 'Blogs not found'));
@@ -77,7 +77,7 @@ const getBlogById = async (req, res) => {
   const filters = { blog_id: req.params.id };
   Blog.find(filters)
     .then((blogs) => {
-      if (blogs && blogs !== null) {
+      if (blogs && blogs.length > 0) {
         res.status(200).send(formatResponse(blogs, null));
       } else {
         res.status(404).send(formatResponse(null, 'Blog not found'));

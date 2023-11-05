@@ -65,7 +65,7 @@ const getUsers = async (req, res) => {
     .limit(limitValue)
     .sort(sortConfig)
     .then((users) => {
-      if (users && users !== null) {
+      if (users && users.length > 0) {
         res.status(200).send(formatResponse(users, null));
       } else {
         res.status(404).send(formatResponse(null, 'Users not found'));
@@ -81,7 +81,7 @@ const getUserById = async (req, res) => {
   const filters = { user_id: req.params.id };
   User.find(filters)
     .then((users) => {
-      if (users && users !== null) {
+      if (users && users.length > 0) {
         res.status(200).send(formatResponse(users, null));
       } else {
         res.status(404).send(formatResponse(null, 'User not found'));

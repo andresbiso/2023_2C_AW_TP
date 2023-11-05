@@ -65,7 +65,7 @@ const getArticles = async (req, res) => {
     .limit(limitValue)
     .sort(sortConfig)
     .then((articles) => {
-      if (articles && articles !== null) {
+      if (articles && articles.length > 0) {
         res.status(200).send(formatResponse(articles, null));
       } else {
         res.status(404).send(formatResponse(null, 'Articles not found'));
@@ -81,7 +81,7 @@ const getArticleById = async (req, res) => {
   const filters = { article_id: req.params.id };
   Article.find(filters)
     .then((articles) => {
-      if (articles && articles !== null) {
+      if (articles && articles.length > 0) {
         res.status(200).send(formatResponse(articles, null));
       } else {
         res.status(404).send(formatResponse(null, 'Article not found'));

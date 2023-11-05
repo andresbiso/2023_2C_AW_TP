@@ -65,7 +65,7 @@ const getComments = async (req, res) => {
     .limit(limitValue)
     .sort(sortConfig)
     .then((comments) => {
-      if (comments && comments !== null) {
+      if (comments && comments.length > 0) {
         res.status(200).send(formatResponse(comments, null));
       } else {
         res.status(404).send(formatResponse(null, 'Comments not found'));
@@ -81,7 +81,7 @@ const getCommentById = async (req, res) => {
   const filters = { comment_id: req.params.id };
   Comment.find(filters)
     .then((comments) => {
-      if (comments && comments !== null) {
+      if (comments && comments.length > 0) {
         res.status(200).send(formatResponse(comments, null));
       } else {
         res.status(404).send(formatResponse(null, 'Comment not found'));

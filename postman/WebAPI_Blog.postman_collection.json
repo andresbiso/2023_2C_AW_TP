@@ -156,7 +156,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"test_pass_1c\"\n}",
+							"raw": "{\n  \"first_name\": \"test_first_name_1c\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

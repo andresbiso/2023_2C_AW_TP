@@ -209,12 +209,14 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/user_id"
-            },
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
             "example": 1
           }
         ],
@@ -242,12 +244,14 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "id",
             "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/user_id"
-            },
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
             "example": 1
           },
           {
@@ -269,10 +273,72 @@
               }
             },
             "example": {
-              "username": "test_user_1",
-              "password": "test_pass_1",
-              "first_name": "test_first_name_1",
-              "last_name": "test_last_name_1"
+              "username": "test_user_1b",
+              "password": "test_pass_1b",
+              "first_name": "test_first_name_1b",
+              "last_name": "test_last_name_1b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/success"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/bad_request"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/not_found"
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/definitions/server_error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "description": "Update user",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
+          },
+          {
+            "name": "user_model",
+            "required": [],
+            "in": "body",
+            "properties": {
+              "username": {
+                "$ref": "#/definitions/username"
+              },
+              "password": {
+                "$ref": "#/definitions/password"
+              },
+              "first_name": {
+                "$ref": "#/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/last_name"
+              }
+            },
+            "example": {
+              "first_name": "test_first_name_1c"
             }
           }
         ],
@@ -305,22 +371,21 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "user_id",
-            "in": "query",
-            "schema": {
-              "$ref": "#/definitions/user_id"
-            }
+            "in": "path",
+            "name": "id",
+            "description": "user_id",
+            "required": "true",
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1,
+            "nullable": false,
+            "example": 1
           }
         ],
         "responses": {
           "200": {
             "schema": {
               "$ref": "#/definitions/success"
-            }
-          },
-          "400": {
-            "schema": {
-              "$ref": "#/definitions/bad_request"
             }
           },
           "404": {
@@ -339,19 +404,19 @@
   },
   "definitions": {
     "user_id": {
-      "type": "number",
+      "type": "integer",
       "description": "Id for User"
     },
     "blog_id": {
-      "type": "number",
+      "type": "integer",
       "description": "Id for Blog"
     },
     "article_id": {
-      "type": "number",
+      "type": "integer",
       "description": "Id for Article"
     },
     "comment_id": {
-      "type": "number",
+      "type": "integer",
       "description": "Id for Comment"
     },
     "username": {
@@ -383,12 +448,12 @@
       "description": "Add some content"
     },
     "page": {
-      "type": "number",
+      "type": "integer",
       "description": "Current Page",
       "example": "1"
     },
     "limit": {
-      "type": "number",
+      "type": "integer",
       "description": "Number of elements",
       "example": "10"
     },
