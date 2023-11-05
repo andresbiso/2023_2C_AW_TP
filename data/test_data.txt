@@ -1,5 +1,0 @@
-{
-  "name": "test_user",
-  "password": "test_password",
-  "email": "test@email.com"
-}
