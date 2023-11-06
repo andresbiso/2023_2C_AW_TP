@@ -78,6 +78,67 @@
 					"response": []
 				},
 				{
+					"name": "get user related blogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/1/blogs?page=1&limit=0&sort=desc&sort_by=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"blogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "sort_by",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get user not body",
 					"request": {
 						"method": "HEAD",
@@ -253,6 +314,67 @@
 					"response": []
 				},
 				{
+					"name": "get blog related articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/blogs/1/articles?page=1&limit=0&sort=desc&sort_by=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"blogs",
+								"1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "sort_by",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get blog",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/blogs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"blogs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get blog not body",
 					"request": {
 						"method": "HEAD",
@@ -325,7 +447,7 @@
 					"response": []
 				},
 				{
-					"name": "put user",
+					"name": "put blog",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -428,6 +550,67 @@
 					"response": []
 				},
 				{
+					"name": "get article related comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/articles/1/comments?page=1&limit=0&sort=desc&sort_by=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"articles",
+								"1",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "sort_by",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/articles/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"articles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get article not body",
 					"request": {
 						"method": "HEAD",
@@ -500,7 +683,7 @@
 					"response": []
 				},
 				{
-					"name": "put user",
+					"name": "put article",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -603,7 +786,28 @@
 					"response": []
 				},
 				{
-					"name": "get article not body",
+					"name": "get comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/comments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get comment not body",
 					"request": {
 						"method": "HEAD",
 						"header": [],
@@ -624,7 +828,7 @@
 					"response": []
 				},
 				{
-					"name": "delete article",
+					"name": "delete comment",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -645,7 +849,7 @@
 					"response": []
 				},
 				{
-					"name": "update article",
+					"name": "update comment",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -675,7 +879,7 @@
 					"response": []
 				},
 				{
-					"name": "put user",
+					"name": "put comment",
 					"request": {
 						"method": "PATCH",
 						"header": [],
