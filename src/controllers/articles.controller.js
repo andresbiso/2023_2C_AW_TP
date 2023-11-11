@@ -229,7 +229,21 @@ const deleteArticle = async (req, res) => {
     });
 };
 
-const getArticleComments = async () => {};
+const getArticleComments = async (req, res) => {
+  const filters = { article_id: req.params.id };
+  Article.find(filters)
+    .then((articles) => {
+      if (articles && articles.length > 0) {
+        res.status(200).send(formatResponse(articles, null));
+      } else {
+        res.status(404).send(formatResponse(null, 'Article not found'));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+};
 
 module.exports = {
   getArticles,

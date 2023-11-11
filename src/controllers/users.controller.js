@@ -245,7 +245,76 @@ const deleteUser = async (req, res) => {
     });
 };
 
-const getUserBlogs = async () => {};
+const getUserBlogs = async (req, res) => {
+  const filters = { user_id: req.params.id };
+  const page = req.query.page;
+  const limit = req.query.limit;
+  const sort = req.query.sort;
+  const sort_by = req.query.sort_by;
+  let sortConfig = {};
+  let skipValue = parseInt(defaultSkip);
+  let limitValue = parseInt(defaultLimit);
+  if (limit) {
+    console.log(limit);
+    if (limit < 0) {
+      res
+        .status(400)
+        .send(
+          formatResponse(null, 'Limit parameter must be greater or equal to 0'),
+        );
+      return;
+    }
+    limitValue = parseInt(limit);
+  }
+  if (page) {
+    if (page <= 0) {
+      res
+        .status(400)
+        .send(formatResponse(null, 'Page parameter must be greater than 0'));
+      return;
+    }
+    skipValue = (page - 1) * limitValue;
+  }
+  if (sort_by) {
+    const sorting = sort ? sort : defaultSort;
+    sortConfig = { [sort_by]: sorting };
+  }
+  const user = await User.find(filters)
+    .then((users) => {
+      if (users && users.length > 0) {
+        return users[0];
+      } else {
+        res.status(404).send(formatResponse(null, 'User not found'));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  User.aggregate()
+    .lookup({
+      from: 'blogs',
+      localField: 'user_id',
+      foreignField: 'user_id',
+      as: 'blogs',
+    })
+    .addFields({ blogs_count: { $size: '$blogs' } })
+    .match({ user_id: user.user_id })
+    .skip(skipValue)
+    .limit(limitValue)
+    .sort(sortConfig)
+    .then((result) => {
+      if (result && result.length > 0) {
+        res.status(200).send(formatResponse(result, null));
+      } else {
+        res.status(404).send(formatResponse(null, "User doesn't have blogs"));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+};
 
 const getUserReport = async () => {};
 

@@ -4,6 +4,8 @@ const articleSchema = new Schema({
   article_id: {
     type: Number,
     required: true,
+    unique: true,
+    dropDups: true,
   },
   blog_id: {
     type: Number,
