@@ -9,6 +9,8 @@ router.get(basePath + '/', blogsCtrl.getBlogs);
 
 router.get(basePath + '/:id', blogsCtrl.getBlogById);
 
+router.get(basePath + '/:id/articles', blogsCtrl.getBlogArticles);
+
 router.post(basePath + '/', blogsCtrl.createBlog);
 
 router.put(basePath + '/:id', blogsCtrl.updateBlog);

@@ -9,6 +9,10 @@ router.get(basePath + '/', usersCtrl.getUsers);
 
 router.get(basePath + '/:id', usersCtrl.getUserById);
 
+router.get(basePath + '/:id/blogs', usersCtrl.getUserBlogs);
+
+router.get(basePath + '/:id/report', usersCtrl.getUserReport);
+
 router.post(basePath + '/', usersCtrl.createUser);
 
 router.put(basePath + '/:id', usersCtrl.updateUser);

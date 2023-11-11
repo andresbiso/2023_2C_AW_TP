@@ -225,6 +225,8 @@ const deleteBlog = async (req, res) => {
     });
 };
 
+const getBlogArticles = async () => {};
+
 module.exports = {
   getBlogs,
   getBlogById,
@@ -232,4 +234,5 @@ module.exports = {
   updateBlog,
   partialUpdateBlog,
   deleteBlog,
+  getBlogArticles,
 };

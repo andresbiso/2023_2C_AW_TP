@@ -9,6 +9,8 @@ router.get(basePath + '/', articlesCtrl.getArticles);
 
 router.get(basePath + '/:id', articlesCtrl.getArticleById);
 
+router.get(basePath + '/:id/comments', articlesCtrl.getArticleComments);
+
 router.post(basePath + '/', articlesCtrl.createArticle);
 
 router.put(basePath + '/:id', articlesCtrl.updateArticle);

@@ -245,6 +245,10 @@ const deleteUser = async (req, res) => {
     });
 };
 
+const getUserBlogs = async () => {};
+
+const getUserReport = async () => {};
+
 module.exports = {
   getUsers,
   getUserById,
@@ -252,4 +256,6 @@ module.exports = {
   updateUser,
   partialUpdateUser,
   deleteUser,
+  getUserBlogs,
+  getUserReport,
 };

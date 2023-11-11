@@ -229,6 +229,8 @@ const deleteArticle = async (req, res) => {
     });
 };
 
+const getArticleComments = async () => {};
+
 module.exports = {
   getArticles,
   getArticleById,
@@ -236,4 +238,5 @@ module.exports = {
   updateArticle,
   partialUpdateArticle,
   deleteArticle,
+  getArticleComments,
 };
