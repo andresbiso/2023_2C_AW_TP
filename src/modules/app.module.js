@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../configs/swagger.json');
+const { formatResponse } = require('../utils/utils');
 
 // Routes
 const usersRoutes = require('../routes/users.routes');
@@ -71,8 +72,10 @@ app.get('/', function (req, res) {
 });
 
 // Catch-all route
-// app.get('*', (req, res) => {
-//   return res.status(400).json({ message: 'Bad Request' });
-// });
+app.get('*', (req, res) => {
+  if (!res.headersSent) {
+    return res.status(400).json(formatResponse(null, 'Bad Request'));
+  }
+});
 
 module.exports = app;
