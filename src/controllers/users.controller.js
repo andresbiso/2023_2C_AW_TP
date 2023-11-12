@@ -316,7 +316,69 @@ const getUserBlogs = async (req, res) => {
     });
 };
 
-const getUserReport = async () => {};
+const getUserReport = async (req, res) => {
+  const filters = { user_id: req.params.id };
+  const user = await User.find(filters)
+    .then((users) => {
+      if (users && users.length > 0) {
+        return users[0];
+      } else {
+        res.status(404).send(formatResponse(null, 'User not found'));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  const blogsAmount = await User.aggregate()
+    .lookup({
+      from: 'blogs',
+      localField: 'user_id',
+      foreignField: 'user_id',
+      as: 'blogs',
+    })
+    .addFields({ blogs_count: { $size: '$blogs' } })
+    .match({ user_id: user.user_id })
+    .then((result) => {
+      if (result && result.length > 0) {
+        return result[0].blogs_count;
+      } else {
+        res.status(404).send(formatResponse(null, "User doesn't have blogs"));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  const commentsAmount = await User.aggregate()
+    .lookup({
+      from: 'comments',
+      localField: 'user_id',
+      foreignField: 'user_id',
+      as: 'comments',
+    })
+    .addFields({ comments_count: { $size: '$comments' } })
+    .match({ user_id: user.user_id })
+    .then((result) => {
+      if (result && result.length > 0) {
+        return result[0].comments_count;
+      } else {
+        res.status(404).send(formatResponse(null, "User doesn't have blogs"));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  const result = {
+    user_id: user.user_id,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    blogs_amount: blogsAmount,
+    comments_amount: commentsAmount,
+  };
+  res.status(200).send(formatResponse(result, null));
+};
 
 module.exports = {
   getUsers,
