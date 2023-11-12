@@ -7,7 +7,7 @@ const defaultSort = process.env.DEFAULT_SORT;
 const defaultSkip = process.env.DEFAULT_SKIP;
 const defaultLimit = process.env.DEFAULT_LIMIT;
 
-const getArticles = async (req, res) => {
+const getArticles = async (req, res, next) => {
   const article_id = req.query.article_id;
   const blog_id = req.query.blog_id;
   const title = req.query.title;
@@ -72,12 +72,11 @@ const getArticles = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getArticleById = async (req, res) => {
+const getArticleById = async (req, res, next) => {
   const filters = { article_id: req.params.id };
   Article.find(filters)
     .then((articles) => {
@@ -88,12 +87,11 @@ const getArticleById = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const createArticle = async (req, res) => {
+const createArticle = async (req, res, next) => {
   const body = req.body;
   const article_id = body.article_id;
   const blog_id = body.blog_id;
@@ -131,12 +129,11 @@ const createArticle = async (req, res) => {
       res.status(200).send(formatResponse(result, 'Article created'));
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const updateArticle = async (req, res) => {
+const updateArticle = async (req, res, next) => {
   const body = req.body;
   const blog_id = body.blog_id;
   const title = body.title;
@@ -173,12 +170,11 @@ const updateArticle = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const partialUpdateArticle = async (req, res) => {
+const partialUpdateArticle = async (req, res, next) => {
   const body = req.body;
   const blog_id = body.blog_id;
   const title = body.title;
@@ -208,12 +204,11 @@ const partialUpdateArticle = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const deleteArticle = async (req, res) => {
+const deleteArticle = async (req, res, next) => {
   const filter = { article_id: req.params.id };
   Article.findOneAndDelete(filter)
     .then((result) => {
@@ -224,12 +219,11 @@ const deleteArticle = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getArticleComments = async (req, res) => {
+const getArticleComments = async (req, res, next) => {
   const filters = { article_id: req.params.id };
   const page = req.query.page;
   const limit = req.query.limit;
@@ -272,8 +266,7 @@ const getArticleComments = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   Article.aggregate()
     .lookup({
@@ -297,8 +290,7 @@ const getArticleComments = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 

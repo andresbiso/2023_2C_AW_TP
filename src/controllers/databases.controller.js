@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { formatResponse } = require('../utils/utils');
 
-const getDatabases = async (req, res) => {
+const getDatabases = async (req, res, next) => {
   try {
     const data = await mongoose.connection.db.admin().command({
       listDatabases: 1,
@@ -11,9 +11,8 @@ const getDatabases = async (req, res) => {
     } else {
       res.status(404).send(formatResponse(null, 'Data not found'));
     }
-  } catch (e) {
-    console.log(e);
-    res.status(500).send(formatResponse(null, e.message));
+  } catch (err) {
+    next(err);
   }
 };
 

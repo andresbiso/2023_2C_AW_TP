@@ -7,7 +7,7 @@ const defaultSort = process.env.DEFAULT_SORT;
 const defaultSkip = process.env.DEFAULT_SKIP;
 const defaultLimit = process.env.DEFAULT_LIMIT;
 
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   const user_id = req.query.user_id;
   const username = req.query.username;
   const password = req.query.password;
@@ -72,12 +72,11 @@ const getUsers = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   const filters = { user_id: req.params.id };
   User.find(filters)
     .then((users) => {
@@ -88,12 +87,11 @@ const getUserById = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   const body = req.body;
   const user_id = body.user_id;
   const username = body.username;
@@ -137,12 +135,11 @@ const createUser = async (req, res) => {
       res.status(200).send(formatResponse(result, 'User created'));
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   const body = req.body;
   const username = body.username;
   const password = body.password;
@@ -185,12 +182,11 @@ const updateUser = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const partialUpdateUser = async (req, res) => {
+const partialUpdateUser = async (req, res, next) => {
   const body = req.body;
   const username = body.username;
   const password = body.password;
@@ -224,12 +220,11 @@ const partialUpdateUser = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   const filter = { user_id: req.params.id };
   User.findOneAndDelete(filter)
     .then((result) => {
@@ -240,12 +235,11 @@ const deleteUser = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getUserBlogs = async (req, res) => {
+const getUserBlogs = async (req, res, next) => {
   const filters = { user_id: req.params.id };
   const page = req.query.page;
   const limit = req.query.limit;
@@ -288,8 +282,7 @@ const getUserBlogs = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   User.aggregate()
     .lookup({
@@ -311,12 +304,11 @@ const getUserBlogs = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getUserReport = async (req, res) => {
+const getUserReport = async (req, res, next) => {
   const filters = { user_id: req.params.id };
   const user = await User.find(filters)
     .then((users) => {
@@ -327,8 +319,7 @@ const getUserReport = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   const blogsAmount = await User.aggregate()
     .lookup({
@@ -347,8 +338,7 @@ const getUserReport = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   const commentsAmount = await User.aggregate()
     .lookup({
@@ -367,8 +357,7 @@ const getUserReport = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   const result = {
     user_id: user.user_id,

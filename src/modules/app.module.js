@@ -71,8 +71,8 @@ app.get('/', function (req, res) {
 });
 
 // Catch-all route
-app.get('*', (req, res) => {
-  return res.status(400).json({ message: 'Bad Request' });
-});
+// app.get('*', (req, res) => {
+//   return res.status(400).json({ message: 'Bad Request' });
+// });
 
 module.exports = app;

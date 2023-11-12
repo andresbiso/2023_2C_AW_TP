@@ -7,7 +7,7 @@ const defaultSort = process.env.DEFAULT_SORT;
 const defaultSkip = process.env.DEFAULT_SKIP;
 const defaultLimit = process.env.DEFAULT_LIMIT;
 
-const getBlogs = async (req, res) => {
+const getBlogs = async (req, res, next) => {
   const blog_id = req.query.blog_id;
   const user_id = req.query.user_id;
   const title = req.query.title;
@@ -68,12 +68,11 @@ const getBlogs = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getBlogById = async (req, res) => {
+const getBlogById = async (req, res, next) => {
   const filters = { blog_id: req.params.id };
   Blog.find(filters)
     .then((blogs) => {
@@ -84,12 +83,11 @@ const getBlogById = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const createBlog = async (req, res) => {
+const createBlog = async (req, res, next) => {
   const body = req.body;
   const blog_id = body.blog_id;
   const user_id = body.user_id;
@@ -127,12 +125,11 @@ const createBlog = async (req, res) => {
       res.status(200).send(formatResponse(result, 'Blog created'));
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const updateBlog = async (req, res) => {
+const updateBlog = async (req, res, next) => {
   const body = req.body;
   const user_id = body.user_id;
   const title = body.title;
@@ -169,12 +166,11 @@ const updateBlog = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const partialUpdateBlog = async (req, res) => {
+const partialUpdateBlog = async (req, res, next) => {
   const body = req.body;
   const user_id = body.user_id;
   const title = body.title;
@@ -204,12 +200,11 @@ const partialUpdateBlog = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const deleteBlog = async (req, res) => {
+const deleteBlog = async (req, res, next) => {
   const filter = { blog_id: req.params.id };
   Blog.findOneAndDelete(filter)
     .then((result) => {
@@ -220,12 +215,11 @@ const deleteBlog = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getBlogArticles = async (req, res) => {
+const getBlogArticles = async (req, res, next) => {
   const filters = { blog_id: req.params.id };
   const page = req.query.page;
   const limit = req.query.limit;
@@ -268,8 +262,7 @@ const getBlogArticles = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
   Blog.aggregate()
     .lookup({
@@ -293,8 +286,7 @@ const getBlogArticles = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 

@@ -1,7 +1,9 @@
+const { formatResponse } = require('../utils/utils');
+
 const errorHandler = (error, req, res, next) => {
   if (error) {
     console.log(error);
-    return res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).send(formatResponse(null, error.message));
   }
   next();
 };

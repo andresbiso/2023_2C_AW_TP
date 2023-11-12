@@ -7,7 +7,7 @@ const defaultSort = process.env.DEFAULT_SORT;
 const defaultSkip = process.env.DEFAULT_SKIP;
 const defaultLimit = process.env.DEFAULT_LIMIT;
 
-const getComments = async (req, res) => {
+const getComments = async (req, res, next) => {
   const comment_id = req.query.comment_id;
   const article_id = req.query.article_id;
   const user_id = req.query.user_id;
@@ -72,12 +72,11 @@ const getComments = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const getCommentById = async (req, res) => {
+const getCommentById = async (req, res, next) => {
   const filters = { comment_id: req.params.id };
   Comment.find(filters)
     .then((comments) => {
@@ -88,12 +87,11 @@ const getCommentById = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const createComment = async (req, res) => {
+const createComment = async (req, res, next) => {
   const body = req.body;
   const comment_id = body.comment_id;
   const article_id = body.article_id;
@@ -131,12 +129,11 @@ const createComment = async (req, res) => {
       res.status(200).send(formatResponse(result, 'Comment created'));
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const updateComment = async (req, res) => {
+const updateComment = async (req, res, next) => {
   const body = req.body;
   const article_id = body.article_id;
   const user_id = body.user_id;
@@ -173,12 +170,11 @@ const updateComment = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const partialUpdateComment = async (req, res) => {
+const partialUpdateComment = async (req, res, next) => {
   const body = req.body;
   const article_id = body.article_id;
   const user_id = body.user_id;
@@ -208,12 +204,11 @@ const partialUpdateComment = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
-const deleteComment = async (req, res) => {
+const deleteComment = async (req, res, next) => {
   const filter = { comment_id: req.params.id };
   Comment.findOneAndDelete(filter)
     .then((result) => {
@@ -224,8 +219,7 @@ const deleteComment = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
-      res.status(500).send(formatResponse(null, err.message));
+      next(err);
     });
 };
 
