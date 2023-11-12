@@ -231,12 +231,69 @@ const deleteArticle = async (req, res) => {
 
 const getArticleComments = async (req, res) => {
   const filters = { article_id: req.params.id };
-  Article.find(filters)
+  const page = req.query.page;
+  const limit = req.query.limit;
+  const sort = req.query.sort;
+  const sort_by = req.query.sort_by;
+  let sortConfig = {};
+  let skipValue = parseInt(defaultSkip);
+  let limitValue = parseInt(defaultLimit);
+  if (limit) {
+    console.log(limit);
+    if (limit < 0) {
+      res
+        .status(400)
+        .send(
+          formatResponse(null, 'Limit parameter must be greater or equal to 0'),
+        );
+      return;
+    }
+    limitValue = parseInt(limit);
+  }
+  if (page) {
+    if (page <= 0) {
+      res
+        .status(400)
+        .send(formatResponse(null, 'Page parameter must be greater than 0'));
+      return;
+    }
+    skipValue = (page - 1) * limitValue;
+  }
+  if (sort_by) {
+    const sorting = sort ? sort : defaultSort;
+    sortConfig = { [sort_by]: sorting };
+  }
+  const article = await Article.find(filters)
     .then((articles) => {
-      if (articles && articles.length > 0) {
-        res.status(200).send(formatResponse(articles, null));
+      if (articles && typeof articles !== 'undefined' && articles.length > 0) {
+        return articles[0];
       } else {
         res.status(404).send(formatResponse(null, 'Article not found'));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  Article.aggregate()
+    .lookup({
+      from: 'comments',
+      localField: 'article_id',
+      foreignField: 'article_id',
+      as: 'comments',
+    })
+    .addFields({ comments_count: { $size: '$comments' } })
+    .match({ article_id: article.article_id })
+    .skip(skipValue)
+    .limit(limitValue)
+    .sort(sortConfig)
+    .then((result) => {
+      if (result && result.length > 0 && result[0].comments_count > 0) {
+        res.status(200).send(formatResponse(result, null));
+      } else {
+        res
+          .status(404)
+          .send(formatResponse(null, "Article doesn't have comments"));
       }
     })
     .catch((err) => {

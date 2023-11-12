@@ -304,7 +304,7 @@ const getUserBlogs = async (req, res) => {
     .limit(limitValue)
     .sort(sortConfig)
     .then((result) => {
-      if (result && result.length > 0) {
+      if (result && result.length > 0 && result[0].blogs_count > 0) {
         res.status(200).send(formatResponse(result, null));
       } else {
         res.status(404).send(formatResponse(null, "User doesn't have blogs"));

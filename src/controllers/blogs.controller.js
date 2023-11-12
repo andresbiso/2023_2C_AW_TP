@@ -225,7 +225,78 @@ const deleteBlog = async (req, res) => {
     });
 };
 
-const getBlogArticles = async () => {};
+const getBlogArticles = async (req, res) => {
+  const filters = { blog_id: req.params.id };
+  const page = req.query.page;
+  const limit = req.query.limit;
+  const sort = req.query.sort;
+  const sort_by = req.query.sort_by;
+  let sortConfig = {};
+  let skipValue = parseInt(defaultSkip);
+  let limitValue = parseInt(defaultLimit);
+  if (limit) {
+    console.log(limit);
+    if (limit < 0) {
+      res
+        .status(400)
+        .send(
+          formatResponse(null, 'Limit parameter must be greater or equal to 0'),
+        );
+      return;
+    }
+    limitValue = parseInt(limit);
+  }
+  if (page) {
+    if (page <= 0) {
+      res
+        .status(400)
+        .send(formatResponse(null, 'Page parameter must be greater than 0'));
+      return;
+    }
+    skipValue = (page - 1) * limitValue;
+  }
+  if (sort_by) {
+    const sorting = sort ? sort : defaultSort;
+    sortConfig = { [sort_by]: sorting };
+  }
+  const blog = await Blog.find(filters)
+    .then((blogs) => {
+      if (blogs && blogs.length > 0) {
+        return blogs[0];
+      } else {
+        res.status(404).send(formatResponse(null, 'Blog not found'));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+  Blog.aggregate()
+    .lookup({
+      from: 'articles',
+      localField: 'blog_id',
+      foreignField: 'blog_id',
+      as: 'articles',
+    })
+    .addFields({ articles_count: { $size: '$articles' } })
+    .match({ blog_id: blog.blog_id })
+    .skip(skipValue)
+    .limit(limitValue)
+    .sort(sortConfig)
+    .then((result) => {
+      if (result && result.length > 0 && result[0].articles_count > 0) {
+        res.status(200).send(formatResponse(result, null));
+      } else {
+        res
+          .status(404)
+          .send(formatResponse(null, "Blog doesn't have articles"));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(formatResponse(null, err.message));
+    });
+};
 
 module.exports = {
   getBlogs,
