@@ -1174,7 +1174,7 @@
               }
             },
             "example": {
-              "user_id": 1,
+              "blog_id": 1,
               "title": "test_title_1b",
               "content": "test_content_1b"
             }

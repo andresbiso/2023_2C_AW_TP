@@ -191,7 +191,7 @@ const partialUpdateComment = async (req, res, next) => {
     update.user_id = user_id;
   }
   if (content) {
-    update.first_name = content;
+    update.content = content;
   }
   const filter = { comment_id: req.params.id };
 
