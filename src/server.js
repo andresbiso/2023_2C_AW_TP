@@ -1,7 +1,7 @@
 const argv = require('minimist')(process.argv.slice(2));
 const app = require('./modules/app.module');
 const Database = require('./models/database.model');
-require('dotenv').config({path: __dirname + '/configs/.env'});
+require('dotenv').config({ path: __dirname + '/configs/.env' });
 
 // Connect to production database
 const uri = process.env.MONGODB_URI;

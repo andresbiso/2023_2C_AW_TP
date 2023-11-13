@@ -6,6 +6,7 @@ const articleSchema = new Schema({
     required: true,
     unique: true,
     dropDups: true,
+    min: 1,
   },
   blog_id: {
     type: Number,

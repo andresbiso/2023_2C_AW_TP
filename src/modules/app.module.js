@@ -74,7 +74,7 @@ app.get('/', function (req, res) {
 // Catch-all route
 app.get('*', (req, res) => {
   if (!res.headersSent) {
-    return res.status(400).json(formatResponse(null, 'Bad Request'));
+    return res.status(404).json(formatResponse(null, 'Not Found'));
   }
 });
 

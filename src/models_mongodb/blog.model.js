@@ -6,6 +6,7 @@ const blogSchema = new Schema({
     required: true,
     unique: true,
     dropDups: true,
+    min: 1,
   },
   user_id: {
     type: Number,

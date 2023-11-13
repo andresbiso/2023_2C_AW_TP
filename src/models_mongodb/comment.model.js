@@ -6,6 +6,7 @@ const commentSchema = new Schema({
     required: true,
     unique: true,
     dropDups: true,
+    min: 1,
   },
   article_id: {
     type: Number,
