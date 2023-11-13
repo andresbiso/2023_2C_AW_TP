@@ -233,7 +233,6 @@ const getArticleComments = async (req, res, next) => {
   let skipValue = parseInt(defaultSkip);
   let limitValue = parseInt(defaultLimit);
   if (limit) {
-    console.log(limit);
     if (limit < 0) {
       res
         .status(400)
@@ -268,6 +267,10 @@ const getArticleComments = async (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+
+  // if article user is undefined then finish execution
+  if (!article) return;
+
   Article.aggregate()
     .lookup({
       from: 'comments',

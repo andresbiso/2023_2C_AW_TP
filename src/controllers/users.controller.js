@@ -249,7 +249,6 @@ const getUserBlogs = async (req, res, next) => {
   let skipValue = parseInt(defaultSkip);
   let limitValue = parseInt(defaultLimit);
   if (limit) {
-    console.log(limit);
     if (limit < 0) {
       res
         .status(400)
@@ -284,6 +283,10 @@ const getUserBlogs = async (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+
+  // if user is undefined then finish execution
+  if (!user) return;
+
   User.aggregate()
     .lookup({
       from: 'blogs',
@@ -321,6 +324,10 @@ const getUserReport = async (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+
+  // if user is undefined then finish execution
+  if (!user) return;
+
   const blogsAmount = await User.aggregate()
     .lookup({
       from: 'blogs',
