@@ -269,9 +269,9 @@ const getUserBlogs = async (req, res, next) => {
     skipValue = (page - 1) * limitValue;
   }
   if (sort_by) {
-    let sorting = sort ? sort : defaultSort;
-    sorting = sorting.toLowerCase() === 'asc' ? 1 : -1;
-    sortConfig = { [sort_by]: sorting };
+    const sorting = sort ? sort : defaultSort;
+    const sortingValue = sorting.toLowerCase() === 'asc' ? 1 : -1;
+    sortConfig = { [sort_by]: sortingValue };
   }
   const user = await User.find(filters)
     .then((users) => {
@@ -302,6 +302,7 @@ const getUserBlogs = async (req, res, next) => {
       ],
     })
     .addFields({ blogs_count: { $size: '$blogs' } })
+    .match({ user_id: user.user_id })
     .then((result) => {
       if (result && result.length > 0 && result[0].blogs_count > 0) {
         res.status(200).send(formatResponse(result, null));

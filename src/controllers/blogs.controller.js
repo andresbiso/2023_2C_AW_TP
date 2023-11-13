@@ -250,7 +250,8 @@ const getBlogArticles = async (req, res, next) => {
   }
   if (sort_by) {
     const sorting = sort ? sort : defaultSort;
-    sortConfig = { [sort_by]: sorting };
+    const sortingValue = sorting.toLowerCase() === 'asc' ? 1 : -1;
+    sortConfig = { [sort_by]: sortingValue };
   }
   const blog = await Blog.find(filters)
     .then((blogs) => {
@@ -273,12 +274,15 @@ const getBlogArticles = async (req, res, next) => {
       localField: 'blog_id',
       foreignField: 'blog_id',
       as: 'articles',
+      pipeline: [
+        { $match: { blog_id: blog.blog_id } },
+        { $sort: sortConfig },
+        { $skip: skipValue },
+        { $limit: limitValue },
+      ],
     })
     .addFields({ articles_count: { $size: '$articles' } })
     .match({ blog_id: blog.blog_id })
-    .skip(skipValue)
-    .limit(limitValue)
-    .sort(sortConfig)
     .then((result) => {
       if (result && result.length > 0 && result[0].articles_count > 0) {
         res.status(200).send(formatResponse(result, null));

@@ -83,7 +83,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/users/1/blogs?page=1&limit=0&sort=desc&sort_by=title",
+							"raw": "http://localhost:3000/api/users/1/blogs?page=1&limit=1&sort=desc&sort_by=title",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -102,7 +102,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "0"
+									"value": "1"
 								},
 								{
 									"key": "sort",
@@ -341,7 +341,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/blogs/1/articles?page=1&limit=0&sort=desc&sort_by=title",
+							"raw": "http://localhost:3000/api/blogs/1/articles?page=1&limit=1&sort=desc&sort_by=title",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -360,7 +360,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "0"
+									"value": "1"
 								},
 								{
 									"key": "sort",
@@ -577,7 +577,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/articles/1/comments?page=1&limit=0&sort=desc&sort_by=title",
+							"raw": "http://localhost:3000/api/articles/1/comments?page=1&limit=1&sort=desc&sort_by=title",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -596,7 +596,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "0"
+									"value": "1"
 								},
 								{
 									"key": "sort",

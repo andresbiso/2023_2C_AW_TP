@@ -254,7 +254,8 @@ const getArticleComments = async (req, res, next) => {
   }
   if (sort_by) {
     const sorting = sort ? sort : defaultSort;
-    sortConfig = { [sort_by]: sorting };
+    const sortingValue = sorting.toLowerCase() === 'asc' ? 1 : -1;
+    sortConfig = { [sort_by]: sortingValue };
   }
   const article = await Article.find(filters)
     .then((articles) => {
@@ -277,12 +278,15 @@ const getArticleComments = async (req, res, next) => {
       localField: 'article_id',
       foreignField: 'article_id',
       as: 'comments',
+      pipeline: [
+        { $match: { article_id: article.article_id } },
+        { $sort: sortConfig },
+        { $skip: skipValue },
+        { $limit: limitValue },
+      ],
     })
     .addFields({ comments_count: { $size: '$comments' } })
     .match({ article_id: article.article_id })
-    .skip(skipValue)
-    .limit(limitValue)
-    .sort(sortConfig)
     .then((result) => {
       if (result && result.length > 0 && result[0].comments_count > 0) {
         res.status(200).send(formatResponse(result, null));
